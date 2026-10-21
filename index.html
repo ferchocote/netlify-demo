@@ -252,7 +252,7 @@ button, a, input, select, textarea { touch-action: manipulation; }
     inset: auto;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 86px auto auto;
+    grid-template-rows: 100px auto auto;
     justify-items: center;
     align-content: start;
     gap: 5px;
@@ -278,13 +278,13 @@ button, a, input, select, textarea { touch-action: manipulation; }
   #page-home .station-building {
     grid-column: 1;
     grid-row: 1;
-    width: 82px;
-    height: 82px;
+    width: 96px;
+    height: 96px;
     border: 3px solid #fffdf3;
     border-radius: 50%;
     background: #fffdf3;
     box-shadow: 0 5px 0 #d3dfc8, 0 7px 16px #355a3524;
-    font-size: 39px;
+    font-size: 48px;
   }
   #page-home .station-building::before { display: none; }
   #page-home .map-station.active .station-building {
@@ -302,7 +302,7 @@ button, a, input, select, textarea { touch-action: manipulation; }
     background: #fffdf2ed;
     box-shadow: 0 2px 6px #355a3512;
     white-space: normal;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.2;
   }
   #page-home .station-status {
@@ -312,18 +312,23 @@ button, a, input, select, textarea { touch-action: manipulation; }
     padding: 3px 7px;
     border-radius: 999px;
     background: #fffdf2d9;
-    font-size: 9px;
+    font-size: 10px;
     line-height: 1.2;
   }
   #page-home .walker {
     display: block;
-    z-index: 4;
-    width: 72px;
-    height: 100px;
+    z-index: 12;
+    width: 90px;
+    height: 128px;
   }
-  #page-home .walker .person.guide-avatar-mount { width: 68px; height: 92px; }
-  #page-home .walker-bubble { max-width: min(164px, 45vw); padding: 6px 8px; font-size: 10px; }
-  #page-home .walker-accessory { right: -2px; top: 7px; font-size: 17px; }
+  #page-home .walker .person.guide-avatar-mount { width: 84px; height: 112px; }
+  #page-home .walker-bubble { z-index: 13; max-width: min(164px, 45vw); padding: 6px 8px; font-size: 10px; }
+  #page-home .walker-bubble,
+  #page-home .walker.bubble-left .walker-bubble { top: 50%; left: calc(100% + 8px); right: auto; bottom: auto; width: min(164px, calc(100vw - 130px)); min-width: 110px; transform: translateY(-50%); }
+  #page-home .walker-bubble::after { left: -7px; right: auto; top: 50%; bottom: auto; transform: translateY(-50%); border-width: 7px 7px 7px 0; border-color: transparent #fffdf9 transparent transparent; }
+  #page-home .walker.bubble-left .walker-bubble { left: auto; right: calc(100% + 8px); }
+  #page-home .walker.bubble-left .walker-bubble::after { left: auto; right: -7px; border-width: 7px 0 7px 7px; border-color: transparent transparent transparent #fffdf9; }
+  #page-home .walker-accessory { right: -4px; top: 10px; font-size: 20px; }
   #page-home .map-guide { gap: 9px; margin: 12px 0 0; }
   #page-home .map-guide button { width: 100%; min-height: 46px; }
   #page-home .impact-panel { padding: 16px; }
@@ -340,10 +345,10 @@ button, a, input, select, textarea { touch-action: manipulation; }
   .stats { gap: 5px; }
   .stat { padding-inline: 5px; }
   .stat span { font-size: 9px; }
-  #page-home .map-station { width: 48%; grid-template-rows: 73px auto auto; gap: 4px; }
-  #page-home .station-building { width: 68px; height: 68px; font-size: 32px; }
-  #page-home .walker { width: 64px; height: 92px; }
-  #page-home .walker .person.guide-avatar-mount { width: 62px; height: 84px; }
+  #page-home .map-station { width: 48%; grid-template-rows: 88px auto auto; gap: 4px; }
+  #page-home .station-building { width: 78px; height: 78px; font-size: 38px; }
+  #page-home .walker { width: 78px; height: 116px; }
+  #page-home .walker .person.guide-avatar-mount { width: 74px; height: 102px; }
   #page-home .station-label { font-size: 10px; padding: 4px 6px; }
   #page-home .world-map { height: 480px; min-height: 480px; }
 }
@@ -1183,6 +1188,17 @@ const moveToModuleWithMapAnimation = window.moveToModule;
 const routePath = document.querySelector('#worldMap .path-svg path');
 const desktopRoute = 'M75 300 C145 330 180 310 205 260 S285 150 400 145 S535 150 650 255 S755 300 860 150';
 const mobileRoute = 'M200 90 C400 90 600 175 800 175 S400 257 200 257 S600 305 800 305';
+const placeAvatarWithBubblePlacement = window.placeAvatar;
+function placeBubbleBesideAvatar() {
+  const walker = document.getElementById('walker');
+  if (!walker) return;
+  walker.classList.toggle('bubble-left', Number.parseFloat(walker.style.left || '0') >= 50);
+}
+window.placeAvatar = function () {
+  const result = placeAvatarWithBubblePlacement?.();
+  placeBubbleBesideAvatar();
+  return result;
+};
 function updateRouteForViewport() {
   if (routePath) routePath.setAttribute('d', window.matchMedia('(max-width: 640px)').matches ? mobileRoute : desktopRoute);
 }
@@ -1190,7 +1206,9 @@ updateRouteForViewport();
 window.addEventListener('resize', updateRouteForViewport, { passive: true });
 window.moveToModule = function (index) {
   moveToModuleWithMapAnimation(index);
+  placeBubbleBesideAvatar();
 };
+placeBubbleBesideAvatar();
 </script>
 </body>
 </html>
