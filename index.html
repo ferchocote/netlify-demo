@@ -208,111 +208,122 @@ button, a, input, select, textarea { touch-action: manipulation; }
   .section-head { margin-top: 22px; }
   .section-head h2 { font-size: 20px; }
 
-  /* Replace the small-screen map with a vertical lesson path. */
+  /* Turn the small-screen module map into a playful, touch-friendly route. */
   #page-home .world-map {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-    height: auto;
-    min-height: 0;
+    display: block;
+    height: 500px;
+    min-height: 500px;
     max-width: none;
-    overflow: visible;
-    padding: 17px 13px;
-    border-radius: 22px;
-    background: linear-gradient(180deg, #e8f3e9, #f4f5e8);
+    overflow: hidden;
+    padding: 0;
+    border-radius: 24px;
+    background:
+      radial-gradient(ellipse at 50% 15%, #fff9dc 0 3%, transparent 3.5%),
+      radial-gradient(ellipse at 15% 78%, #b6d3a4 0 14%, transparent 14.5%),
+      radial-gradient(ellipse at 88% 54%, #c4dba9 0 16%, transparent 16.5%),
+      linear-gradient(180deg, #e9f4e8 0%, #f6f5df 54%, #e2eed9 100%);
     touch-action: pan-y;
   }
-  #page-home .map-sun,
-  #page-home .map-cloud,
-  #page-home .hill,
-  #page-home .path-svg,
-  #page-home .walker { display: none !important; }
-  #page-home .map-station {
-    position: relative;
-    inset: auto;
-    left: auto;
-    top: auto;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 50px minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    justify-items: start;
-    align-items: center;
-    gap: 2px 11px;
-    width: 100%;
-    min-width: 0;
-    min-height: 78px;
-    padding: 11px 13px;
-    transform: none;
-    border: 1px solid #d8e3d7;
-    border-bottom: 4px solid #c7d9c7;
-    border-radius: 18px;
-    background: var(--paper);
-    text-align: left;
-    box-shadow: 0 3px 0 #dfe8dd;
-    transition: transform .16s ease, box-shadow .16s ease, opacity .16s ease;
-  }
-  #page-home .map-station::after {
-    content: "";
+  #page-home .world-map::before {
+    content: "TU RUTA DE APRENDIZAJE";
     position: absolute;
-    z-index: -1;
-    left: 35px;
-    bottom: -15px;
-    width: 3px;
-    height: 12px;
-    border-radius: 9px;
-    background: #b7d2ba;
+    z-index: 1;
+    top: 13px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 7px 12px;
+    border: 1px solid #d5e2cf;
+    border-radius: 999px;
+    background: #fffdf0e8;
+    color: var(--green);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .09em;
+    white-space: nowrap;
   }
-  #page-home #station3::after { display: none; }
-  #page-home .map-station.active {
-    border-color: #83ac8d;
-    border-bottom-color: #6d9c79;
-    box-shadow: 0 4px 0 #b6d1bb;
-  }
-  #page-home .map-station.active:active { transform: translateY(2px); box-shadow: 0 1px 0 #b6d1bb; }
-  #page-home .map-station.completed {
-    border-color: #a7c9a9;
-    border-bottom-color: #8eb792;
-    background: #f5fbf3;
-  }
-  #page-home .map-station:not(.active):not(.completed) { opacity: .82; }
-  #page-home .station-building {
-    position: relative;
-    grid-column: 1;
-    grid-row: 1 / 3;
+  #page-home .map-sun { right: 7%; top: 8%; width: 43px; height: 43px; opacity: .8; }
+  #page-home .map-cloud { font-size: 32px; opacity: .55; }
+  #page-home .hill { opacity: .5; }
+  #page-home .path-svg { display: block; opacity: .85; }
+  #page-home .path-svg path { stroke: #d2a752; stroke-width: 10; stroke-dasharray: 3 15; }
+  #page-home .map-station {
+    position: absolute;
+    z-index: 2;
+    inset: auto;
     display: grid;
-    place-items: center;
-    width: 48px;
-    height: 48px;
-    border: 0;
-    border-radius: 15px;
-    background: var(--mint);
-    box-shadow: none;
-    font-size: 27px;
-  }
-  #page-home .map-station.active .station-building { background: #fff1bd; }
-  #page-home .station-reward { right: -5px; top: -5px; }
-  #page-home .station-label {
-    grid-column: 2;
-    grid-row: 1;
-    max-width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 58px auto auto;
+    justify-items: center;
+    align-content: start;
+    gap: 5px;
+    width: 45%;
+    min-width: 0;
+    min-height: 0;
     padding: 0;
+    transform: translate(-50%, -50%);
+    border: 0;
     border-radius: 0;
     background: transparent;
     box-shadow: none;
-    white-space: normal;
-    text-align: left;
-    font-size: 14px;
-    line-height: 1.25;
+    text-align: center;
   }
-  #page-home .station-status {
-    grid-column: 2;
+  #page-home .station-1 { left: 20%; top: 25%; }
+  #page-home .station-2 { left: 80%; top: 45%; }
+  #page-home .station-3 { left: 20%; top: 66%; }
+  #page-home .station-4 { left: 80%; top: 86%; }
+  #page-home .map-station::after { display: none; }
+  #page-home .map-station.active,
+  #page-home .map-station.completed,
+  #page-home .map-station:not(.active):not(.completed) { opacity: 1; }
+  #page-home .station-building {
+    grid-column: 1;
+    grid-row: 1;
+    width: 55px;
+    height: 55px;
+    border: 3px solid #fffdf3;
+    border-radius: 50%;
+    background: #fffdf3;
+    box-shadow: 0 5px 0 #d3dfc8, 0 7px 16px #355a3524;
+    font-size: 27px;
+  }
+  #page-home .station-building::before { display: none; }
+  #page-home .map-station.active .station-building {
+    background: #f8d475;
+    box-shadow: 0 5px 0 #d4a944, 0 0 0 5px #fff9df99, 0 8px 18px #355a3529;
+  }
+  #page-home .map-station.completed .station-building { background: #d9edcf; }
+  #page-home .station-label {
+    grid-column: 1;
     grid-row: 2;
     max-width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #e5e6d1;
+    border-radius: 11px;
+    background: #fffdf2ed;
+    box-shadow: 0 2px 6px #355a3512;
+    white-space: normal;
     font-size: 11px;
-    line-height: 1.3;
-    text-align: left;
+    line-height: 1.2;
   }
+  #page-home .station-status {
+    grid-column: 1;
+    grid-row: 3;
+    max-width: 100%;
+    padding: 3px 7px;
+    border-radius: 999px;
+    background: #fffdf2d9;
+    font-size: 9px;
+    line-height: 1.2;
+  }
+  #page-home .walker {
+    display: block;
+    z-index: 4;
+    width: 48px;
+    height: 67px;
+  }
+  #page-home .walker .person.guide-avatar-mount { width: 44px; height: 58px; }
+  #page-home .walker-bubble { max-width: min(154px, 45vw); padding: 6px 8px; font-size: 10px; }
+  #page-home .walker-accessory { right: -3px; top: 4px; font-size: 15px; }
   #page-home .map-guide { gap: 9px; margin: 12px 0 0; }
   #page-home .map-guide button { width: 100%; min-height: 46px; }
   #page-home .impact-panel { padding: 16px; }
@@ -329,8 +340,10 @@ button, a, input, select, textarea { touch-action: manipulation; }
   .stats { gap: 5px; }
   .stat { padding-inline: 5px; }
   .stat span { font-size: 9px; }
-  #page-home .map-station { grid-template-columns: 44px minmax(0, 1fr); gap: 2px 9px; padding-inline: 10px; }
-  #page-home .station-building { width: 42px; height: 42px; font-size: 24px; }
+  #page-home .map-station { width: 48%; gap: 4px; }
+  #page-home .station-building { width: 49px; height: 49px; font-size: 23px; }
+  #page-home .station-label { font-size: 10px; padding: 4px 6px; }
+  #page-home .world-map { height: 480px; min-height: 480px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -424,6 +437,69 @@ button, a, input, select, textarea { touch-action: manipulation; }
   }
   #page-module .help-fab-label { display: none; }
   #page-module .help-fab-icon { flex: 0 0 36px; width: 36px; height: 36px; }
+}
+</style>
+<style id="guide-preview-responsive">
+/* Give the customizable guide a clear focal point and make her items feel attached to the preview. */
+.esperanza-custom-preview {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  isolation: isolate;
+}
+.esperanza-custom-preview::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 10px;
+  width: 108px;
+  height: 13px;
+  border-radius: 50%;
+  background: #315f4c24;
+  filter: blur(4px);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.esperanza-custom-preview #esperanzaPreviewAvatar {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 0;
+  width: 104px;
+  height: 158px;
+  bottom: 6px;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+}
+.esperanza-custom-preview #esperanzaPreviewAvatar svg {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.06);
+  transform-origin: center bottom;
+}
+.esperanza-custom-preview #esperanzaExtraPreview,
+.esperanza-custom-preview #esperanzaPropPreview {
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d6e4d2;
+  border-radius: 50%;
+  background: #fffdf8;
+  box-shadow: 0 3px 9px #24372e20;
+  font-size: 18px;
+  line-height: 1;
+}
+.esperanza-custom-preview #esperanzaExtraPreview { left: calc(50% + 38px); top: 52%; }
+.esperanza-custom-preview #esperanzaPropPreview { left: calc(50% - 72px); top: 68%; }
+
+@media (max-width: 600px) {
+  .esperanza-custom-preview { height: 158px; min-height: 158px; }
+  .esperanza-custom-preview #esperanzaPreviewAvatar { width: 92px; height: 138px; bottom: 6px; }
+  .esperanza-custom-preview #esperanzaExtraPreview { left: calc(50% + 34px); top: 49%; }
+  .esperanza-custom-preview #esperanzaPropPreview { left: calc(50% - 64px); top: 67%; }
 }
 </style>
 </head>
@@ -559,11 +635,11 @@ const Luz = (() => {
   function arm(id, notebook) {
     const thumbX = notebook ? 8 : -8;
     return `
-    <g id="${id}">
+    <g id="${id}" transform="${notebook ? 'translate(84 178) rotate(8)' : 'translate(156 178) rotate(-8)'}">
       <circle cx="0" cy="0" r="15" fill="url(#gCardiU)"/>
       <rect x="-14" y="-6" width="28" height="74" rx="14" fill="url(#gCardiU)"/>
       <rect x="-14" y="-6" width="28" height="74" rx="14" fill="url(#pKnit)"/>
-      <g class="fore" id="${id}F">
+      <g class="fore" id="${id}F" transform="${notebook ? 'translate(0 62) rotate(-40)' : 'translate(0 62) rotate(10)'}">
         <rect x="-12.5" y="-8" width="25" height="60" rx="12.5" fill="url(#gCardiU)"/>
         <rect x="-12.5" y="-8" width="25" height="60" rx="12.5" fill="url(#pKnit)"/>
         <rect x="-13" y="42" width="26" height="11" rx="5.5" fill="#123F35"/>
@@ -922,7 +998,7 @@ html,body,#app,.main,.panel,.panel-scroll,.panel-inner{min-width:0;max-width:100
 .choice{height:auto;white-space:normal}
 @media(max-width:640px){
   .topbar{min-height:52px;padding-block:5px}
-  .main{grid-template-rows:minmax(150px,20svh) minmax(0,1fr)}
+  .main{grid-template-rows:minmax(158px,24svh) minmax(0,1fr)}
   .stage{min-height:0}
   .caption{top:54px;bottom:auto;max-height:min(108px,calc(100% - 60px));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
   .cap-text{font-size:14px;line-height:1.3}
@@ -937,13 +1013,18 @@ html,body,#app,.main,.panel,.panel-scroll,.panel-inner{min-width:0;max-width:100
   .field input,.field select{font-size:16px}
   .choice{min-height:52px;padding:9px 11px;font-size:15px;gap:9px}
   .choice .let{width:30px;height:30px}
+  .choice:active{transform:translateY(1px)}
+  .fb{padding:13px 14px;font-size:15px}
+  .card.hl{border-radius:18px;padding:16px}
   .ledger{font-size:13px}
   .ledger td,.ledger th{padding:8px 6px}
   .ledger td.v,.ledger th.v{white-space:nowrap}
   .phone{width:min(100%,280px)}
-  .pager{padding-top:7px;padding-bottom:max(7px,env(safe-area-inset-bottom,0px));gap:6px}
-  .navbtn{min-width:44px;min-height:46px;padding-inline:11px;justify-content:center}
-  .dots{gap:4px}
+  .pager{display:grid;grid-template-columns:minmax(44px,auto) minmax(0,1fr);grid-template-areas:"progress progress" "previous next";padding-top:7px;padding-bottom:max(8px,env(safe-area-inset-bottom,0px));gap:7px;background:var(--panel)}
+  .dots{grid-area:progress;gap:4px;flex:none;min-height:10px}
+  .navbtn.prev{grid-area:previous}
+  .navbtn.next{grid-area:next;width:100%;min-height:52px;justify-content:center;border-radius:15px}
+  .navbtn{min-width:44px;min-height:48px;padding-inline:11px;justify-content:center}
   .dot{width:16px;min-width:12px}
   .dot.on{width:25px}
   .voice-ctrls{top:7px;right:max(7px,env(safe-area-inset-right,0px));gap:5px}
@@ -956,6 +1037,7 @@ html,body,#app,.main,.panel,.panel-scroll,.panel-inner{min-width:0;max-width:100
   .caption{left:43%;right:7px;padding:8px 9px}
   .luz-wrap{left:22%;height:91%}
   .navbtn{padding-inline:8px}
+  .navbtn.next{min-height:50px}
   .dots{gap:3px}
   .dot{width:12px}
   .dot.on{width:20px}
@@ -1090,15 +1172,15 @@ document.getElementById('registerBtn').addEventListener('click',register);docume
 </script>
 <script id="responsive-app-enhancements-js">
 const moveToModuleWithMapAnimation = window.moveToModule;
+const routePath = document.querySelector('#worldMap .path-svg path');
+const desktopRoute = 'M75 300 C145 330 180 310 205 260 S285 150 400 145 S535 150 650 255 S755 300 860 150';
+const mobileRoute = 'M200 90 C400 90 600 175 800 175 S400 257 200 257 S600 335 800 335';
+function updateRouteForViewport() {
+  if (routePath) routePath.setAttribute('d', window.matchMedia('(max-width: 640px)').matches ? mobileRoute : desktopRoute);
+}
+updateRouteForViewport();
+window.addEventListener('resize', updateRouteForViewport, { passive: true });
 window.moveToModule = function (index) {
-  if (window.matchMedia('(max-width: 640px)').matches) {
-    if (index > 0 && !state.completed[index - 1]) {
-      toast('Completa primero la parada anterior, vecina.');
-      return;
-    }
-    openModule(index, state.progress[index] || 0);
-    return;
-  }
   moveToModuleWithMapAnimation(index);
 };
 </script>
