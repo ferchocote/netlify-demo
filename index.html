@@ -252,7 +252,7 @@ button, a, input, select, textarea { touch-action: manipulation; }
     inset: auto;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 58px auto auto;
+    grid-template-rows: 86px auto auto;
     justify-items: center;
     align-content: start;
     gap: 5px;
@@ -270,7 +270,7 @@ button, a, input, select, textarea { touch-action: manipulation; }
   #page-home .station-1 { left: 20%; top: 25%; }
   #page-home .station-2 { left: 80%; top: 45%; }
   #page-home .station-3 { left: 20%; top: 66%; }
-  #page-home .station-4 { left: 80%; top: 86%; }
+  #page-home .station-4 { left: 80%; top: 79%; }
   #page-home .map-station::after { display: none; }
   #page-home .map-station.active,
   #page-home .map-station.completed,
@@ -278,13 +278,13 @@ button, a, input, select, textarea { touch-action: manipulation; }
   #page-home .station-building {
     grid-column: 1;
     grid-row: 1;
-    width: 55px;
-    height: 55px;
+    width: 82px;
+    height: 82px;
     border: 3px solid #fffdf3;
     border-radius: 50%;
     background: #fffdf3;
     box-shadow: 0 5px 0 #d3dfc8, 0 7px 16px #355a3524;
-    font-size: 27px;
+    font-size: 39px;
   }
   #page-home .station-building::before { display: none; }
   #page-home .map-station.active .station-building {
@@ -318,12 +318,12 @@ button, a, input, select, textarea { touch-action: manipulation; }
   #page-home .walker {
     display: block;
     z-index: 4;
-    width: 48px;
-    height: 67px;
+    width: 72px;
+    height: 100px;
   }
-  #page-home .walker .person.guide-avatar-mount { width: 44px; height: 58px; }
-  #page-home .walker-bubble { max-width: min(154px, 45vw); padding: 6px 8px; font-size: 10px; }
-  #page-home .walker-accessory { right: -3px; top: 4px; font-size: 15px; }
+  #page-home .walker .person.guide-avatar-mount { width: 68px; height: 92px; }
+  #page-home .walker-bubble { max-width: min(164px, 45vw); padding: 6px 8px; font-size: 10px; }
+  #page-home .walker-accessory { right: -2px; top: 7px; font-size: 17px; }
   #page-home .map-guide { gap: 9px; margin: 12px 0 0; }
   #page-home .map-guide button { width: 100%; min-height: 46px; }
   #page-home .impact-panel { padding: 16px; }
@@ -340,8 +340,10 @@ button, a, input, select, textarea { touch-action: manipulation; }
   .stats { gap: 5px; }
   .stat { padding-inline: 5px; }
   .stat span { font-size: 9px; }
-  #page-home .map-station { width: 48%; gap: 4px; }
-  #page-home .station-building { width: 49px; height: 49px; font-size: 23px; }
+  #page-home .map-station { width: 48%; grid-template-rows: 73px auto auto; gap: 4px; }
+  #page-home .station-building { width: 68px; height: 68px; font-size: 32px; }
+  #page-home .walker { width: 64px; height: 92px; }
+  #page-home .walker .person.guide-avatar-mount { width: 62px; height: 84px; }
   #page-home .station-label { font-size: 10px; padding: 4px 6px; }
   #page-home .world-map { height: 480px; min-height: 480px; }
 }
@@ -974,7 +976,7 @@ function progressTotal(){return state.completed.filter(Boolean).length*25}
 function earned(){let b=[];state.completed.forEach((x,i)=>{if(x)b.push(i)});if(state.completed.every(Boolean))b.push(4);return b}
 function updateStats(){const p=progressTotal();const a=earned();['statProgress'].forEach(id=>document.getElementById(id).textContent=p+'%');document.getElementById('statModules').textContent=state.completed.filter(Boolean).length+' de 4';document.getElementById('statBadges').textContent=a.length;const bc=document.getElementById('badgeCount');if(bc)bc.textContent=a.length+' ganadas';renderBadges()}
 function renderModules(){placeAvatar();for(let i=0;i<4;i++){const status=document.getElementById('stationStatus'+i),spot=document.getElementById('station'+i);if(!status||!spot)continue;const unlocked=i===0||state.completed[i-1];status.textContent=state.completed[i]?'✓ Aventura completada':unlocked?(state.progress[i]?`↻ ${state.progress[i]} de 8 pasos`:'▶ Disponible'):'🔒 La siguiente parada';spot.classList.toggle('active',unlocked&&!state.completed[i]);spot.classList.toggle('completed',!!state.completed[i]);const reward=document.getElementById('reward'+i);if(reward)reward.textContent=['🪴','🏷️','🎏','🌼'][i];spot.setAttribute('aria-label',modules[i].title+(unlocked?` disponible, ${state.progress[i]||0} de 8 pasos`:' bloqueado hasta completar la parada anterior'));}renderImpact();}
-function mapCoordinates(){return window.matchMedia('(max-width: 560px)').matches?[[18,19],[82,40],[18,62],[82,83]]:[[17,67],[40,37],[65,66],[86,38]]}
+function mapCoordinates(){return window.matchMedia('(max-width: 560px)').matches?[[18,19],[82,40],[18,62],[76,76]]:[[17,67],[40,37],[65,66],[86,38]]}
 function placeAvatar(){const walker=document.getElementById('walker');if(!walker)return;let pos=state.completed[3]?3:Math.max(0,state.completed.findIndex(x=>!x));if(pos<0)pos=3;const coords=mapCoordinates();walker.style.left=coords[pos][0]+'%';walker.style.top=coords[pos][1]+'%';document.getElementById('walkerBubble').textContent=state.completed[pos]?'¡Parada lograda!':pos===0?'¡Vamos juntas!':'¡Llegamos a esta aventura!';}
 function resumeJourney(){let i=state.completed.findIndex(x=>!x);if(i<0)i=3;moveToModule(i)}
 function moveToModule(i){if(i>0&&!state.completed[i-1]){toast('Completa primero la parada anterior, vecina.');return}const coords=mapCoordinates(),walker=document.getElementById('walker');walker.classList.add('moving');walker.style.left=coords[i][0]+'%';walker.style.top=coords[i][1]+'%';document.getElementById('walkerBubble').textContent=['¡A organizar las cuentas!','¡Vamos a descubrir el precio justo!','¡Hora de mostrar lo que haces!','¡Un paso más para conocer tus trámites!'][i];setTimeout(()=>{walker.classList.remove('moving');openModule(i,state.progress[i]||0)},1450)}
@@ -998,9 +1000,10 @@ html,body,#app,.main,.panel,.panel-scroll,.panel-inner{min-width:0;max-width:100
 .choice{height:auto;white-space:normal}
 @media(max-width:640px){
   .topbar{min-height:52px;padding-block:5px}
-  .main{grid-template-rows:minmax(158px,24svh) minmax(0,1fr)}
-  .stage{min-height:0}
-  .caption{top:54px;bottom:auto;max-height:min(108px,calc(100% - 60px));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+  .main{min-height:0;overflow:hidden;grid-template-rows:minmax(190px,34dvh) minmax(0,1fr)}
+  .stage{position:relative;z-index:1;min-height:0;overflow:hidden}
+  .panel{position:relative;z-index:2;min-height:0;overflow:hidden;border-top:1px solid var(--line)}
+  .caption{top:96px;bottom:auto;max-height:min(108px,calc(100% - 106px));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
   .cap-text{font-size:14px;line-height:1.3}
   .panel-scroll{padding-block:12px 22px;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scroll-padding-block:12px}
   .panel-inner{gap:12px}
@@ -1020,32 +1023,36 @@ html,body,#app,.main,.panel,.panel-scroll,.panel-inner{min-width:0;max-width:100
   .ledger td,.ledger th{padding:8px 6px}
   .ledger td.v,.ledger th.v{white-space:nowrap}
   .phone{width:min(100%,280px)}
-  .pager{display:grid;grid-template-columns:minmax(44px,auto) minmax(0,1fr);grid-template-areas:"progress progress" "previous next";padding-top:7px;padding-bottom:max(8px,env(safe-area-inset-bottom,0px));gap:7px;background:var(--panel)}
-  .dots{grid-area:progress;gap:4px;flex:none;min-height:10px}
-  .navbtn.prev{grid-area:previous}
-  .navbtn.next{grid-area:next;width:100%;min-height:52px;justify-content:center;border-radius:15px}
-  .navbtn{min-width:44px;min-height:48px;padding-inline:11px;justify-content:center}
-  .dot{width:16px;min-width:12px}
-  .dot.on{width:25px}
-  .voice-ctrls{top:7px;right:max(7px,env(safe-area-inset-right,0px));gap:5px}
-  .vbtn{min-width:40px;min-height:40px;padding-inline:8px}
+  .pager{display:flex;align-items:center;flex-wrap:nowrap;padding-top:7px;padding-bottom:max(7px,env(safe-area-inset-bottom,0px));gap:6px;background:var(--panel)}
+  .dots{flex:1 1 auto;width:auto;min-width:0;max-width:none;justify-content:center;flex-wrap:nowrap;gap:4px;overflow:hidden}
+  .navbtn.prev{flex:0 0 44px}
+  .navbtn.next{flex:0 0 52px;width:52px;min-width:52px;min-height:52px;justify-content:center;border-radius:15px;padding-inline:8px}
+  .navbtn{min-width:44px;min-height:48px;padding-inline:8px;justify-content:center}
+  .navbtn .lbl{display:none}
+  .dot{width:16px;min-width:12px;height:8px;flex:0 1 16px}
+  .dot.on{width:25px;min-width:20px;flex-basis:25px}
+  .voice-ctrls{top:7px;left:max(7px,env(safe-area-inset-left,0px));right:auto;width:40px;max-width:40px;display:flex;flex-direction:column;align-items:stretch;gap:4px}
+  .vbtn{width:40px;min-width:40px;min-height:40px;padding:0;justify-content:center;gap:0;font-size:10px}
+  .vbtn span{display:none}
   .vmenu{top:54px;right:7px;width:min(340px,calc(100% - 14px));max-height:calc(100% - 62px)}
 }
 @media(max-width:380px){
   .panel-scroll{padding-inline:max(10px,env(safe-area-inset-left,0px)) max(10px,env(safe-area-inset-right,0px))}
   .card{padding:12px}
-  .caption{left:43%;right:7px;padding:8px 9px}
+  .caption{left:43%;right:7px;top:96px;max-height:min(108px,calc(100% - 106px));padding:8px 9px}
   .luz-wrap{left:22%;height:91%}
-  .navbtn{padding-inline:8px}
-  .navbtn.next{min-height:50px}
+  .voice-ctrls{width:40px;max-width:40px}
+  .navbtn{padding-inline:7px}
+  .navbtn.prev{flex-basis:42px}
+  .navbtn.next{flex-basis:48px;width:48px;min-width:48px;min-height:48px}
   .dots{gap:3px}
-  .dot{width:12px}
-  .dot.on{width:20px}
+  .dot{width:12px;min-width:10px;flex-basis:12px}
+  .dot.on{width:20px;min-width:17px;flex-basis:20px}
   .form-grid{grid-template-columns:minmax(0,1fr)}
 }
 @media(max-height:620px) and (max-width:919px){
-  .main{grid-template-rows:minmax(145px,24svh) minmax(0,1fr)}
-  .caption{max-height:min(96px,calc(100% - 58px))}
+  .main{grid-template-rows:minmax(145px,32dvh) minmax(0,1fr)}
+  .caption{top:88px;max-height:min(96px,calc(100% - 98px))}
   .panel-scroll{padding-block:10px 14px}
   .pager{padding-block:5px}
 }
@@ -1174,7 +1181,7 @@ document.getElementById('registerBtn').addEventListener('click',register);docume
 const moveToModuleWithMapAnimation = window.moveToModule;
 const routePath = document.querySelector('#worldMap .path-svg path');
 const desktopRoute = 'M75 300 C145 330 180 310 205 260 S285 150 400 145 S535 150 650 255 S755 300 860 150';
-const mobileRoute = 'M200 90 C400 90 600 175 800 175 S400 257 200 257 S600 335 800 335';
+const mobileRoute = 'M200 90 C400 90 600 175 800 175 S400 257 200 257 S600 305 800 305';
 function updateRouteForViewport() {
   if (routePath) routePath.setAttribute('d', window.matchMedia('(max-width: 640px)').matches ? mobileRoute : desktopRoute);
 }
